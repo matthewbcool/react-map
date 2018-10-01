@@ -10,7 +10,6 @@ class App extends Component {
 }
 componentDidMount() {
   this.getVenues()
-  this.createMap()
 }
   createMap = () => {
     scriptLoader("https://maps.googleapis.com/maps/api/js?key=AIzaSyDyJ4DkX9g-x6blTKDjDdf9EI2_mGKRTPM&callback=initMap")
@@ -23,8 +22,20 @@ componentDidMount() {
     center: {lat: 41.9308, lng: -87.7099},
     zoom: 15
   });
+  
+  this.state.restaurants.map(restaurants => {
+    let lat = restaurants.venue.location.lat
+    let lng = restaurants.venue.location.lng
+    let marker = new window.google.maps.Marker({
+      position: {lat: lat, lng: lng},
+      title:restaurants.venue.name,
+  })
+  marker.setMap(map)
+  return console.log('markers complete')
+});
 }
 
+//getVenues is doing work. sets up axios endpoint and sets the state to the grouping. after the state is set we can populate the map with markers so we call create map.
   getVenues = () => {
     const endPoint = 'https://api.foursquare.com/v2/venues/explore?'
     const parameters = {
@@ -36,7 +47,7 @@ componentDidMount() {
     }
     axios.get(endPoint + new URLSearchParams(parameters)).then(
       response => {
-        this.setState( {restaurants: response.data} )
+        this.setState( {restaurants: response.data.response.groups[0].items}, this.createMap() )
       }
     ).catch(error => {
       console.log("err" + error)
