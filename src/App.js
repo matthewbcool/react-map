@@ -19,20 +19,35 @@ componentDidMount() {
 
   initializeMap = () => {
   const map = new window.google.maps.Map(document.getElementById('map'), {
-    center: {lat: 41.9308, lng: -87.7099},
-    zoom: 15
+    center: {lat: 41.9291, lng: -87.70698786584065},
+    zoom: 17
   });
+
   
+
+  //loop through api call values
   this.state.restaurants.map(restaurants => {
-    let lat = restaurants.venue.location.lat
-    let lng = restaurants.venue.location.lng
+    let contentString = '<div id="content">'+restaurants.venue.name+
+    '</div>';
+  //create info window
+  let infowindow = new window.google.maps.InfoWindow({
+    content: contentString,
+  })  
+
+  //create a marker
     let marker = new window.google.maps.Marker({
-      position: {lat: lat, lng: lng},
+      position: {lat: restaurants.venue.location.lat, lng: restaurants.venue.location.lng},
       title:restaurants.venue.name,
   })
+  //add event listener to marker
+  marker.addListener('click', function() {
+    infowindow.open(map, marker)
+  })
+
   marker.setMap(map)
   return console.log('markers complete')
 });
+console.log(this.state.restaurants)
 }
 
 //getVenues is doing work. sets up axios endpoint and sets the state to the grouping. after the state is set we can populate the map with markers so we call create map.
