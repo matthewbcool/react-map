@@ -6,22 +6,36 @@ class SideBar extends Component {
     componentDidUpdate() {
 
     }
-    
+
+    handleSubmit = (event) => {
+        console.log('submitted')
+        event.preventDefault();
+    }
+    handleChange = (event) => {
+        console.log(event.target.value)
+    }
     render() {
       return (
     <div className="side-bar-box">
-        <select id="filter select">
-            <option value="">--Select Filter--</option>
+    <form onSubmit={this.handleSubmit} >
+      <label>
+          Choose a filter
+        <select id="filter select" onChange={this.handleChange}>
+            <option defaultValue="">--Select Filter--</option>
             <option value="mattList">Matt's Fav's</option>
             <option value="quickBites">Quick Bites</option>
-            <option value="hasDrinks">Doreen's Fav's</option>
+            <option value="doreensList">Doreen's Fav's</option>
        </select>
+      </label> 
+      <input type="submit" value="Submit" />  
+    </form>
        <ul>
       {  
         this.props.restaurantList.map(listItem => {
         return <li className="restaurant-list-item" key={listItem.restaurantKey} onClick={() => triggerInfoWindow(listItem)}>{listItem.restaurantName} </li>
       })}
       </ul>
+      <h4 className="foursquare-attribution">Powered By Foursquare</h4>
     </div>
       );
     }

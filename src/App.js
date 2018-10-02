@@ -42,7 +42,7 @@ componentDidMount() {
   }
 
     let contentString = '<div id="content">'+restaurants.venue.name+
-    '</div>'+'<a href='+deliveryLink+' target="_blank">GrubHub Delivery</a>';
+    '</div><a href='+ deliveryLink +' target="_blank">GrubHub Delivery</a>'
   //create info window
   let infowindow = new window.google.maps.InfoWindow({
     content: contentString,
@@ -87,7 +87,7 @@ this.setState({restaurantList: restaurantList})
         this.setState( {restaurants: response.data.response.groups[0].items}, this.createMap() )
       }
     ).catch(error => {
-      console.log("err" + error)
+      alert("Sorry User! Gracefully informing you there was an error! (: " + error)
     }) 
   }
 
