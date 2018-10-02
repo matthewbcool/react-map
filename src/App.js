@@ -8,9 +8,14 @@ class App extends Component {
     this.state = {
       restaurants: [],
       restaurantList: [],
-      filteredRestaurants: []
+      filteredRestaurants: "",
+      mattsList: "",
+      doreensList: "",
+      currentList: ""
     } 
+    this.setCurrentList = this.setCurrentList.bind(this);
 }
+
 componentDidMount() {
   this.getVenues()
 }
@@ -19,7 +24,9 @@ componentDidMount() {
     window.initMap = this.initializeMap
   }
   
-
+setCurrentList(value) {
+  this.setState({currentList: value})
+}
 
   initializeMap = () => {
   const map = new window.google.maps.Map(document.getElementById('map'), {
@@ -35,7 +42,7 @@ componentDidMount() {
   let deliveryLink;
   //check if deliveryLink is defined
   if(restaurants.venue.delivery === undefined) {
-    //set to grub hub error page if it doesnt exist. not totally accurate, i suppose I should be informing the user it doesnt exist in foursquare api....
+    //set to grub hub error page if it doesnt exist.
     deliveryLink= "https://www.grubhub.com/green.jsp"
   } else {
     deliveryLink = restaurants.venue.delivery.url
@@ -66,10 +73,23 @@ componentDidMount() {
   //push object to array
   restaurantList.push(restaurantListObject)
   marker.setMap(map)
-  return console.log('markers complete')
+  
 });
 //set state equal to restaurant marker
 this.setState({restaurantList: restaurantList})
+this.setState({mattsList: [
+  restaurantList[0],
+  restaurantList[6],
+  restaurantList[2],
+  restaurantList[14],
+]})
+this.setState({doreensList: [
+  restaurantList[3],
+  restaurantList[4],
+  restaurantList[7],
+  restaurantList[10],
+]})
+
 }
 
 //getVenues is doing work. sets up axios endpoint and sets the state to the grouping. after the state is set we call create map.
@@ -95,7 +115,7 @@ this.setState({restaurantList: restaurantList})
   render() {
     return (
       <div className="App">
-      <SideBar restaurantList={this.state.restaurantList} />
+      <SideBar setCurrentList = {this.setCurrentList} currentList={this.state.currentList} restaurantList={this.state.restaurantList} filteredRestaurants={this.state.filteredRestaurants} mattsList={this.state.mattsList} doreensList={this.state.doreensList} />
        <div id="map"> </div>
       </div>
     );
