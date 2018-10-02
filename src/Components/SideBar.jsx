@@ -29,5 +29,7 @@ class SideBar extends Component {
 
     let triggerInfoWindow = (listItem) => {    
     window.google.maps.event.trigger(listItem.restaurantMarker, 'click')
+    listItem.restaurantMarker.setAnimation(window.google.maps.Animation.BOUNCE)
     }
+
   export default SideBar;

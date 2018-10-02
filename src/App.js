@@ -41,6 +41,7 @@ componentDidMount() {
       position: {lat: restaurants.venue.location.lat, lng: restaurants.venue.location.lng},
       title:restaurants.venue.name,
   })
+
   //add event listener to marker
   marker.addListener('click', function() {
     infowindow.open(map, marker)

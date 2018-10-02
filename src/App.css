@@ -11,6 +11,10 @@ ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
+  -webkit-user-select: none;  /* Chrome 49+ */
+  -moz-user-select: none;     /* Firefox 43+ */
+  -ms-user-select: none;      /* No support yet */
+  user-select: none;   
 }
 .restaurant-list-item {
   margin: 5px 5px 5px 5px;
