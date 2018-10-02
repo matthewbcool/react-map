@@ -10,11 +10,11 @@ class SideBar extends Component {
     render() {
       return (
     <div className="side-bar-box">
-        <select id="pet-select">
+        <select id="filter select">
             <option value="">--Select Filter--</option>
             <option value="mattList">Matt's Fav's</option>
             <option value="quickBites">Quick Bites</option>
-            <option value="hasDrinks">Has a Bar</option>
+            <option value="hasDrinks">Doreen's Fav's</option>
        </select>
        <ul>
       {  

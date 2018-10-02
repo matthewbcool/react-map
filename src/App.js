@@ -8,6 +8,7 @@ class App extends Component {
     this.state = {
       restaurants: [],
       restaurantList: [],
+      filteredRestaurants: []
     } 
 }
 componentDidMount() {
@@ -29,21 +30,31 @@ componentDidMount() {
   let restaurantListObject = {};
   //loop through api call values
   this.state.restaurants.map(restaurants => {
+  //info window content
+  //store info for delivery if applicable
+  let deliveryLink;
+  //check if deliveryLink is defined
+  if(restaurants.venue.delivery === undefined) {
+    //set to grub hub error page if it doesnt exist. not totally accurate, i suppose I should be informing the user it doesnt exist in foursquare api....
+    deliveryLink= "https://www.grubhub.com/green.jsp"
+  } else {
+    deliveryLink = restaurants.venue.delivery.url
+  }
+
     let contentString = '<div id="content">'+restaurants.venue.name+
-    '</div>';
+    '</div>'+'<a href='+deliveryLink+' target="_blank">GrubHub Delivery</a>';
   //create info window
   let infowindow = new window.google.maps.InfoWindow({
     content: contentString,
   })  
- 
   //create a marker
     let marker = new window.google.maps.Marker({
       position: {lat: restaurants.venue.location.lat, lng: restaurants.venue.location.lng},
       title:restaurants.venue.name,
   })
-
   //add event listener to marker
   marker.addListener('click', function() {
+    marker.setAnimation(window.google.maps.Animation.DROP);
     infowindow.open(map, marker)
   })
   //save current info into an object
@@ -61,7 +72,7 @@ componentDidMount() {
 this.setState({restaurantList: restaurantList})
 }
 
-//getVenues is doing work. sets up axios endpoint and sets the state to the grouping. after the state is set we can populate the map with markers so we call create map.
+//getVenues is doing work. sets up axios endpoint and sets the state to the grouping. after the state is set we call create map.
   getVenues = () => {
     const endPoint = 'https://api.foursquare.com/v2/venues/explore?'
     const parameters = {
