@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import SideBar from './Components/SideBar';
 import axios from 'axios'
 class App extends Component {
   constructor(){
@@ -73,6 +74,7 @@ console.log(this.state.restaurants)
   render() {
     return (
       <div className="App">
+      <SideBar />
        <div id="map"> </div>
       </div>
     );
