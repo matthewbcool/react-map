@@ -7,6 +7,20 @@ html, body {
   margin: 0;
   padding: 0;
 }
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.restaurant-list-item {
+  margin: 5px 5px 5px 5px;
+  font-size: 1.3em;
+  border-radius: 10px;
+  border: solid black 2px;
+}
+:hover.restaurant-list-item {
+  background-color: aquamarine;
+}
 
 @media ( min-width: 570px ) {
 

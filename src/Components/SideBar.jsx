@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import '../App.css';
 
 class SideBar extends Component {
+
     componentDidUpdate() {
+
     }
+    
     render() {
       return (
     <div className="side-bar-box">
@@ -13,15 +16,18 @@ class SideBar extends Component {
             <option value="quickBites">Quick Bites</option>
             <option value="hasDrinks">Has a Bar</option>
        </select>
-       {
+       <ul>
+      {  
         this.props.restaurantList.map(listItem => {
-            console.log(listItem)
-            return <li key={listItem.restaurantKey} onClick={console.log("clicked!")}>{listItem.restaurantName}</li>
-          })
-        }
+        return <li className="restaurant-list-item" key={listItem.restaurantKey} onClick={() => triggerInfoWindow(listItem)}>{listItem.restaurantName} </li>
+      })}
+      </ul>
     </div>
       );
     }
   }
-  
+
+    let triggerInfoWindow = (listItem) => {    
+    window.google.maps.event.trigger(listItem.restaurantMarker, 'click')
+    }
   export default SideBar;
