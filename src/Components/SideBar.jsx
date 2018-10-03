@@ -12,6 +12,7 @@ class SideBar extends Component {
     handleSubmit = (event) => {
         this.props.restaurantList.map(listItem => {
             listItem.restaurantMarker.setVisible(false)
+          return event  
         })
         //populate markers with filteredRestaurants
         if(this.props.currentList === 'mattsList') {
@@ -19,11 +20,13 @@ class SideBar extends Component {
         this.props.updateFilteredRestaurants(this.props.mattsList)  
         this.props.mattsList.map(listItem => {
             listItem.restaurantMarker.setVisible(true)
+            return this.props.currentList
     }) 
     } else {
         this.props.doreensList.map(listItem => {
           this.props.updateFilteredRestaurants(this.props.doreensList)
           listItem.restaurantMarker.setVisible(true)
+          return this.props.currentList
     }) 
     } 
         event.preventDefault();
@@ -37,8 +40,8 @@ class SideBar extends Component {
           Choose a filter
         <select id="filter select" onChange={this.handleChange} aria-label={"filter selector"}>
             <option defaultValue="" aria-label={"select filter"}>--Select Filter--</option>
-            <option value="mattsList" aria-label={"Matt's List"} aria-required="true">Matt's Fav's</option>
-            <option value="doreensList" aria-label={"Doreen's List"} aria-required="true"   >Doreen's Fav's</option>
+            <option value="mattsList" aria-label={"Matt's List"}>Matt's Fav's</option>
+            <option value="doreensList" aria-label={"Doreen's List"}>Doreen's Fav's</option>
        </select>
       </label> 
       <input type="submit" value="Submit" />  

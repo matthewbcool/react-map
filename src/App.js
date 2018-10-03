@@ -277,7 +277,6 @@ class App extends Component {
 
 componentDidMount() {
   this.getVenues()
-  console.log(mapStyle)
 }
   createMap = () => {
     scriptLoader("https://maps.googleapis.com/maps/api/js?key=AIzaSyDyJ4DkX9g-x6blTKDjDdf9EI2_mGKRTPM&callback=initMap")
@@ -338,7 +337,7 @@ this.setState( {filteredRestaurants: value} )
   //push object to array
   restaurantList.push(restaurantListObject)
   marker.setMap(map)
-  
+  return map
 });
 //set state equal to restaurant marker
 this.setState({restaurantList: restaurantList})
