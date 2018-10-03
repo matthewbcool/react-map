@@ -31,25 +31,25 @@ class SideBar extends Component {
 
     render() {
       return (
-    <div className="side-bar-box">
+    <aside className="side-bar-box">
     <form onSubmit={this.handleSubmit} >
       <label>
           Choose a filter
-        <select id="filter select" onChange={this.handleChange}>
-            <option defaultValue="">--Select Filter--</option>
-            <option value="mattsList">Matt's Fav's</option>
-            <option value="doreensList">Doreen's Fav's</option>
+        <select id="filter select" onChange={this.handleChange} aria-label={"filter selector"}>
+            <option defaultValue="" aria-label={"select filter"}>--Select Filter--</option>
+            <option value="mattsList" aria-label={"Matt's List"} aria-required="true">Matt's Fav's</option>
+            <option value="doreensList" aria-label={"Doreen's List"} aria-required="true"   >Doreen's Fav's</option>
        </select>
       </label> 
       <input type="submit" value="Submit" />  
     </form>
        <ul>
       { this.props.filteredRestaurants.map(listItem => {
-        return <li className="restaurant-list-item" key={listItem.restaurantKey} onClick={() => triggerInfoWindow(listItem)}>{listItem.restaurantName} </li>
+        return <li className="restaurant-list-item" key={listItem.restaurantKey} aria-label={listItem.restaurantName} tabIndex="1" onClick={() => triggerInfoWindow(listItem)}>{listItem.restaurantName} </li>
       })}
       </ul>
       <h4 className="foursquare-attribution">Powered By Foursquare</h4>
-    </div>
+    </aside>
       );
     }
   }
