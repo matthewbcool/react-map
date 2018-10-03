@@ -8,12 +8,13 @@ class App extends Component {
     this.state = {
       restaurants: [],
       restaurantList: [],
-      filteredRestaurants: "",
+      filteredRestaurants: [],
       mattsList: "",
       doreensList: "",
       currentList: ""
     } 
     this.setCurrentList = this.setCurrentList.bind(this);
+    this.updateFilteredRestaurants = this.updateFilteredRestaurants.bind(this);
 }
 
 componentDidMount() {
@@ -26,6 +27,10 @@ componentDidMount() {
   
 setCurrentList(value) {
   this.setState({currentList: value})
+}
+
+updateFilteredRestaurants(value) {
+this.setState( {filteredRestaurants: value} )
 }
 
   initializeMap = () => {
@@ -77,6 +82,7 @@ setCurrentList(value) {
 });
 //set state equal to restaurant marker
 this.setState({restaurantList: restaurantList})
+this.updateFilteredRestaurants(restaurantList)
 this.setState({mattsList: [
   restaurantList[0],
   restaurantList[6],
@@ -115,7 +121,7 @@ this.setState({doreensList: [
   render() {
     return (
       <div className="App">
-      <SideBar setCurrentList = {this.setCurrentList} currentList={this.state.currentList} restaurantList={this.state.restaurantList} filteredRestaurants={this.state.filteredRestaurants} mattsList={this.state.mattsList} doreensList={this.state.doreensList} />
+      <SideBar setCurrentList = {this.setCurrentList} currentList={this.state.currentList} restaurantList={this.state.restaurantList} filteredRestaurants={this.state.filteredRestaurants} mattsList={this.state.mattsList} doreensList={this.state.doreensList} updateFilteredRestaurants={this.updateFilteredRestaurants}/>
        <div id="map"> </div>
       </div>
     );

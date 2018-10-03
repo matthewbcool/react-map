@@ -11,21 +11,24 @@ class SideBar extends Component {
     }
     handleSubmit = (event) => {
         this.props.restaurantList.map(listItem => {
-            listItem.restaurantMarker.setMap()
+            listItem.restaurantMarker.setVisible(false)
         })
         //populate markers with filteredRestaurants
         if(this.props.currentList === 'mattsList') {
+        //if I had more filters I would need to delete this logic and come up with a way to pass the lists in-- probably just filter() the exsisting restaurant list.  
+        this.props.updateFilteredRestaurants(this.props.mattsList)  
         this.props.mattsList.map(listItem => {
-            console.log(listItem.restaurantMarker)
-            listItem.restaurantMarker.setMap()
+            listItem.restaurantMarker.setVisible(true)
     }) 
     } else {
         this.props.doreensList.map(listItem => {
-            listItem.restaurantMarker.setMap(window.google.map.Map)
+          this.props.updateFilteredRestaurants(this.props.doreensList)
+          listItem.restaurantMarker.setVisible(true)
     }) 
     } 
         event.preventDefault();
-}
+  }
+
     render() {
       return (
     <div className="side-bar-box">
@@ -41,13 +44,9 @@ class SideBar extends Component {
       <input type="submit" value="Submit" />  
     </form>
        <ul>
-      { (this.props.fliteredRestaurants === undefined) ?  
-        this.props.restaurantList.map(listItem => {
+      { this.props.filteredRestaurants.map(listItem => {
         return <li className="restaurant-list-item" key={listItem.restaurantKey} onClick={() => triggerInfoWindow(listItem)}>{listItem.restaurantName} </li>
-      }):this.props.fliteredRestaurants.map(listItem => {
-        return <li className="restaurant-list-item" key={listItem.restaurantKey} onClick={() => triggerInfoWindow(listItem)}>{listItem.restaurantName} </li>
-      })
-     }
+      })}
       </ul>
       <h4 className="foursquare-attribution">Powered By Foursquare</h4>
     </div>
